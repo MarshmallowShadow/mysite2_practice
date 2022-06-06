@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>회원가입</title>
+		<title>축하합니다</title>
 		<link href="./assets/css/mysite.css" rel="stylesheet" type="text/css">
 		<link href="./assets/css/user.css" rel="stylesheet" type="text/css">
 	</head>
@@ -69,63 +68,24 @@
 					<!-- //content-head -->
 		
 					<div id="user">
-						<div id="joinForm">
-							<form action="./user?" method="post">
-								<input type="hidden" name="action" value="join">
-								<!-- 아이디 -->
-								<div class="form-group">
-									<label class="form-text" for="input-uid">아이디</label> 
-									<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-									<button type="button" id="">중복체크</button>
-								</div>
-		
-								<!-- 비밀번호 -->
-								<div class="form-group">
-									<label class="form-text" for="input-pass">패스워드</label> 
-									<input type="password" id="input-pass" name="password" value="" placeholder="비밀번호를 입력하세요"	>
-								</div>
-		
-								<!-- 이메일 -->
-								<div class="form-group">
-									<label class="form-text" for="input-name">이름</label> 
-									<input type="text" id="input-name" name="name" value="" placeholder="이름을 입력하세요">
-								</div>
-		
-								<!-- //나이 -->
-								<div class="form-group">
-									<span class="form-text">성별</span> 
-									
-									<label for="rdo-male">남</label> 
-									<input type="radio" id="rdo-male" name="gender" value="male" > 
-									
-									<label for="rdo-female">여</label> 
-									<input type="radio" id="rdo-female" name="gender" value="female" > 
-		
-								</div>
-		
-								<!-- 약관동의 -->
-								<div class="form-group">
-									<span class="form-text">약관동의</span> 
-									
-									<input type="checkbox" id="chk-agree" value="" name="">
-									<label for="chk-agree">서비스 약관에 동의합니다.</label> 
-								</div>
+						<div id="joinOK">
+						
+							<p class="text-large bold">
+								회원가입을 축하합니다.<br>
+								<br>
+								<a href="./user?action=loginForm" >[로그인하기]</a>
+							</p>
 								
-								<!-- 버튼영역 -->
-								<div class="button-area">
-									<button type="submit" id="btn-submit">회원가입</button>
-								</div>
-								
-							</form>
 						</div>
-						<!-- //joinForm -->
+						<!-- //joinOK -->
 					</div>
 					<!-- //user -->
 				</div>
 				<!-- //content  -->
 			</div>
 			<!-- //container  -->
-			
+	
+	
 			<div id="footer">
 				Copyright ⓒ 2020 황일영. All right reserved
 			</div>

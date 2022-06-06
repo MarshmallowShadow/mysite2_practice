@@ -1,13 +1,16 @@
 package com.javaex.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.javaex.dao.UserDao;
 import com.javaex.util.WebUtil;
+import com.javaex.vo.UserVo;
 
 @WebServlet("/user")
 public class UserController extends HttpServlet {
@@ -20,7 +23,22 @@ public class UserController extends HttpServlet {
 		if("joinForm".equals(action)) {
 			WebUtil.forward(request, response, "/WEB-INF/views/user/joinForm.jsp");
 		}
-		
+		else if("join".equals(action)) {
+			String id = request.getParameter("id");
+			String password = request.getParameter("password");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			
+			UserVo uVo = new UserVo(id, password, name, gender);
+			UserDao uDao = new UserDao();
+			int confirm = uDao.userInsert(uVo);
+			
+			if(confirm > 0) {
+				WebUtil.forward(request, response, "WEB-INF/views/user/joinOk.jsp");
+			} else {
+				WebUtil.redirect(request, response, "./user?action=joinForm");
+			}
+		}
 		
 		else {
 			System.out.println("unknown action");

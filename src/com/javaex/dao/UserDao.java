@@ -52,12 +52,18 @@ public class UserDao {
 			getConnection();
 			
 			String query = "";
-			query += " ";
+			query += " insert into users";
+			query += " values(seq_users_no.nextval, ?, ?, ?, ?)";
 			
 			pstmt = conn.prepareStatement(query);
-			
+			pstmt.setString(1, uVo.getId());
+			pstmt.setString(2, uVo.getPassword());
+			pstmt.setString(3, uVo.getName());
+			pstmt.setString(4, uVo.getGender());
 			
 			count = pstmt.executeUpdate();
+			
+			System.out.println(count + "건이 등록되었습니다.");
 			
 		} catch(SQLException e) {
 			System.out.println("error: " + e);
