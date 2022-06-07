@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import com.javaex.vo.UserVo;
 
@@ -73,7 +72,7 @@ public class UserDao {
 		return count;
 	}
 	
-	public int userDelete(UserVo uVo) {
+	public int userUpdate(UserVo uVo) {
 		int count = -1;
 		
 		try {
@@ -81,11 +80,16 @@ public class UserDao {
 			
 			String query = "";
 			query += " ";
+			query += " ";
 			
 			pstmt = conn.prepareStatement(query);
-			
+			pstmt.setString(1, uVo.getPassword());
+			pstmt.setString(2, uVo.getName());
+			pstmt.setString(3, uVo.getGender());
 			
 			count = pstmt.executeUpdate();
+			
+			System.out.println(count + "건이 수정되었습니다.");
 			
 		} catch(SQLException e) {
 			System.out.println("error: " + e);
@@ -95,6 +99,39 @@ public class UserDao {
 		return count;
 	}
 	
+	public UserVo getUser(UserVo uVo) {
+		UserVo authUser = new UserVo();
+		
+		try {
+			getConnection();
+			
+			String query = "";
+			query += " select	no,";
+			query += " 			name";
+			query += " from users";
+			query += " where	id = ?";
+			query += " and			password = ?";
+			
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, uVo.getId());
+			pstmt.setString(2, uVo.getPassword());
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int no = rs.getInt("no");
+				String name = rs.getString("name");
+				authUser.setNo(no);
+				authUser.setName(name);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("error: " + e);
+		}
+		
+		close();
+		return authUser;
+	}
+	
 	public UserVo getUser(int no) {
 		UserVo uVo = new UserVo();
 		
@@ -102,14 +139,28 @@ public class UserDao {
 			getConnection();
 			
 			String query = "";
-			query += " ";
+			query += " select	no,";
+			query += " 			id,";
+			query += " 			password,";
+			query += " 			name,";
+			query += " 			gender,";
+			query += " from users";
+			query += " where	no = ?";
 			
 			pstmt = conn.prepareStatement(query);
-			
+			pstmt.setInt(1, no);
 			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				
+				String id = rs.getString("id");
+				String password = rs.getString("password");
+				String name = rs.getString("name");
+				String gender = rs.getString("gender");
+				uVo.setNo(no);
+				uVo.setId(id);
+				uVo.setPassword(password);
+				uVo.setName(name);
+				uVo.setGender(gender);
 			}
 			
 		} catch(SQLException e) {
